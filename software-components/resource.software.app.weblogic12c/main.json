@@ -1,0 +1,29 @@
+{
+  "name": "WebLogic 12c",
+  "resourceType": "resource.software.app.weblogic12c",
+  "parentType": "resource.software.app",
+  "version": "12c",
+  "cmpVersion": 24,
+  "description": "安装Weblogic 12c软件应用",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.app"
+  },
+  "model": {
+    "typeName": "cloudchef.Weblogic12c",
+    "derivedFrom": "cloudify.nodes.WebServer",
+    "yamlContent": "",
+    "imports": [
+      "types/cloudchef.Weblogic12c.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml"
+    ],
+    "blueprintFiles": [
+
+    ]
+  },
+  "icon": {
+    "id": "57dce95fd4c6485e39ba7899"
+  }
+}

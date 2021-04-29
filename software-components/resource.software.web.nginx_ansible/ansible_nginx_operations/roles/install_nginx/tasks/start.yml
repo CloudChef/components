@@ -1,0 +1,2 @@
+- name: start service
+  shell: systemctl start nginx

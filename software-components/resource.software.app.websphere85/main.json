@@ -1,0 +1,29 @@
+{
+  "name": "WebSphere 85",
+  "resourceType": "resource.software.app.websphere85",
+  "parentType": "resource.software.app",
+  "version": "8.0",
+  "cmpVersion": 24,
+  "description": "安装WebSphere 8.5软件应用",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.app"
+  },
+  "model": {
+    "typeName": "cloudchef.WebSphere85",
+    "derivedFrom": "cloudify.nodes.WebServer",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.WebSphere85.yaml"
+    ],
+    "blueprintFiles": [
+
+    ]
+  },
+  "icon": {
+    "id": "58511579c2dc1a4fc5cf0b17"
+  }
+}

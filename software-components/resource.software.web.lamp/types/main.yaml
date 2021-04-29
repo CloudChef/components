@@ -1,0 +1,68 @@
+cloudchef.LAMP:
+  derived_from: cloudchef.ansible.nodes.WebServer
+  properties:
+    mysqlservice:
+      default: mysqld
+      description: 请指定数据库的服务名称，默认为mysqld
+      alias: 数据库服务名称
+      type: string
+    mysql_port:
+      default: 3306
+      description: 请指定数据库端口，默认为3306
+      alias: 数据库端口
+      type: integer
+    dbuser:
+      default: foouser
+      description: 请输入访问数据库的用户名
+      alias: 数据库用户
+      type: string
+    dbname:
+      default: foodb
+      description: 请输入需要创建的数据库名称
+      alias: 数据库名称
+      type: string
+    upassword:
+      default: abc
+      description: 请输入访问数据库的用户密码
+      alias: 用户密码
+      type: password
+    httpd_port:
+      default: 80
+      description: 请指定HTTP的服务端口，默认为80
+      alias: HTTP服务端口
+      type: integer
+    ntpserver:
+      default:
+      description: 请指定NTP时间服务器
+      alias: NTP时间服务器
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      configure:
+        implementation: ansible.ansible_plugin.operations.configure
+        inputs:
+          playbook:
+            default: null
+            type: string
+            description: null
+      start:
+        implementation: ansible.ansible_plugin.operations.start
+        inputs:
+          playbook:
+            default: site.yml
+            type: string
+            description: null
+      stop:
+        implementation: ansible.ansible_plugin.operations.stop
+        inputs:
+          playbook:
+            default: stop.yml
+            type: string
+            description: null
+      delete:
+        implementation: ansible.ansible_plugin.operations.delete
+        inputs:
+          playbook:
+            default: delete.yml
+            type: string
+            description: null

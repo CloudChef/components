@@ -1,0 +1,14 @@
+cloudchef.FlinkClusterNode:
+  derived_from: cloudchef.ansible.nodes.MultiNodesDeploymentComponent
+  properties:
+    roles:
+      default: flink-HA
+      description: 请选择需要安装的Flink节点角色
+      alias: 角色
+      required: false
+      options:
+        -
+        - flink-HA
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle: {}

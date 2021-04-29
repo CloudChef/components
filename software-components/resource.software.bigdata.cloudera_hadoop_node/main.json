@@ -1,0 +1,29 @@
+{
+  "name": "Cloudera Hadoop Node",
+  "resourceType": "resource.software.bigdata.cloudera_hadoop_node",
+  "parentType": "resource.software.bigdata",
+  "version": "5.9",
+  "cmpVersion": 23,
+  "description": "安装Cloudera Hadoop群集节点",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.bigdata"
+  },
+  "model": {
+    "typeName": "cloudchef.ClouderaHadoopNode",
+    "derivedFrom": "cloudchef.ansible.nodes.MultiNodesDeploymentComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.ClouderaHadoopNode.yaml"
+    ],
+    "blueprintFiles": []
+  },
+  "icon": {
+    "id": "676c6c2d-8a71-46f5-a817-5a26af694905"
+  }
+}

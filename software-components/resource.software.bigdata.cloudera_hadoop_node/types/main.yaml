@@ -1,0 +1,18 @@
+cloudchef.ClouderaHadoopNode:
+  derived_from: cloudchef.ansible.nodes.MultiNodesDeploymentComponent
+  properties:
+    roles:
+      default: 'namenodes'
+      description: 请选择需要安装的Hadoop节点角色
+      alias: 角色
+      required: false
+      options:
+        - 'namenodes'
+        - 'datanodes'
+        - 'zookeepernodes'
+        - 'yarnresourcemanager'
+        - 'hbasemaster'
+        - 'spark'
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle: {}

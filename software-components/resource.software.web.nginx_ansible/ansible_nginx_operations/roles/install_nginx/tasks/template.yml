@@ -1,0 +1,8 @@
+- name: copy conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  when: ansible_os_family == 'Centos'
+  notify: restart service
+- name: copy conf
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  when: ansible_os_family == 'RedHat'
+  notify: restart service

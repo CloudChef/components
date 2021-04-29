@@ -1,0 +1,20 @@
+[
+  {
+    "name": "install_wls",
+    "path": "scripts/install_wls.sh",
+    "type": "SHELL",
+    "isMainFile": false
+  },
+  {
+    "name": "pre_install",
+    "path": "scripts/pre_install.sh",
+    "type": "SHELL",
+    "isMainFile": false
+  },
+  {
+    "name": "start_wls",
+    "path": "scripts/start_wls.sh",
+    "type": "SHELL",
+    "isMainFile": false
+  }
+]

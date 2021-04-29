@@ -1,0 +1,6 @@
+- include: group.yml
+- include: user.yml
+- include: add_dns.yml
+- include: install.yml
+- include: template.yml
+- include: start.yml

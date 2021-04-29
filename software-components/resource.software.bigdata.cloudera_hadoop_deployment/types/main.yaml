@@ -1,0 +1,39 @@
+cloudchef.ClouderaHadoopDeployment:
+  derived_from: cloudchef.ansible.nodes.MultiNodesDeploymentComponent
+  properties:
+    playbook_url:
+      default: ''
+      description: 请指定编排安装文件的地址
+      alias: 编排安装文件地址
+      required: false
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      configure:
+        implementation: ansible.ansible_plugin.multi_nodes_operations.configure
+        inputs:
+          playbook:
+            default: playbook
+            type: string
+            description: null
+      start:
+        implementation: ansible.ansible_plugin.multi_nodes_operations.start
+        inputs:
+          playbook:
+            default: playbook
+            type: string
+            description: null
+      stop:
+        implementation: ansible.ansible_plugin.multi_nodes_operations.stop
+        inputs:
+          playbook:
+            default: playbook
+            type: string
+            description: null
+      delete:
+        implementation: ansible.ansible_plugin.multi_nodes_operations.delete
+        inputs:
+          playbook:
+            default: playbook
+            type: string
+            description: null

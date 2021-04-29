@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# prepare
+
+mkgroup id=405 mqm
+mkuser  id=406 pgrp=mqm groups=mqm home=/home/mqm mqm
+echo "mqm:Passw0rd" | chpasswd
+
+# decompress
+cd /
+gunzip WS_MQ_8.0.0.4_TRIAL_FOR_AIX_ML.tar.gz
+tar xf WS_MQ_8.0.0.4_TRIAL_FOR_AIX_ML.tar
+
+# install
+cd MQServer/
+installp -acgXYd . all
+
+# remove installation package
+rm -rf WS_MQ_8.0.0.4_TRIAL_FOR_AIX_ML.tar

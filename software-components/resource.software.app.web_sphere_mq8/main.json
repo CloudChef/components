@@ -1,0 +1,30 @@
+{
+  "name": "WebSphere MQ 8",
+  "resourceType": "resource.software.app.web_sphere_mq8",
+  "parentType": "resource.software.app",
+  "version": "8.5.5",
+  "cmpVersion": 23,
+  "description": "通过Ansible安装WebSphereMQ 8.0",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.app"
+  },
+  "model": {
+    "typeName": "cloudchef.WebSphereMQ8",
+    "derivedFrom": "cloudchef.ansible.nodes.SoftwareComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.WebSphereMQ8.yaml"
+    ],
+    "blueprintFiles": [
+
+    ]
+  },
+  "icon": {
+    "id": "593f883ac2dc894cc9999dc4"
+  }
+}

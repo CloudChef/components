@@ -1,0 +1,74 @@
+cloudchef.WebSphere85:
+  derived_from: cloudify.nodes.WebServer
+  properties:
+    websphere_tar:
+      default:
+      description: 请指定WebSphere安装包的存放路径
+      alias: 安装包路径
+      type: string
+    websphere_log:
+      default: /var/log/websphere.log
+      description: 请输入WebSphere日志的路径
+      alias: 日志路径
+      type: string
+    server_name:
+      default: MSCCSvr01
+      description: 请输入应用实例的名称
+      alias: 应用实例名称
+      type: string
+    admin_username:
+      default: admin
+      description: 请输入管理员名称
+      alias: 管理员名称
+      type: string
+    admin_password:
+      default: admin
+      description: 请输入管理员密码
+      alias: 管理员密码
+      type: password
+    profile_name:
+      default: MSCCSvr01
+      description: 请输入实例配置文件路径
+      alias: 实例配置文件路径
+      type: string
+    node_name:
+      default: Node01
+      description: 请输入实例节点名称
+      alias: 实例节点名称
+      type: string
+    host_name:
+      default: MSCCSvr01
+      description: 请输入实例主机名称
+      alias: 实例主机名称
+      type: string
+    err_num:
+      default: 10
+      description: 请输入实例错误日志大小
+      alias: 实例错误日志大小
+      type: integer
+    err_size:
+      default: 10
+      description: 请输入实例错误日志数量
+      alias: 实例错误日志数量
+      type: integer
+    out_num:
+      default: 10
+      description: 请输入实例输出日志大小
+      alias: 实例输出日志大小
+      type: integer
+    out_size:
+      default: 10
+      description: 请输入实例输出日志数量
+      alias: 实例输出日志数量
+      type: integer
+    cell_name:
+      default: Cell01
+      description: 请输入单元名称
+      alias: 单元名称
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      create:
+        implementation: scripts/prepare.sh
+      start:
+        implementation: scripts/install.sh

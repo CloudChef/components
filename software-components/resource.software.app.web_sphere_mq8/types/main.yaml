@@ -1,0 +1,48 @@
+cloudchef.WebSphereMQ8:
+  derived_from: cloudchef.ansible.nodes.SoftwareComponent
+  properties:
+    primary_log_num:
+      default: 40
+      description: 请输入主日志数量
+      alias: 主日志数量
+      type: integer
+    standby_log_num:
+      default: 20
+      description: 请输入辅助日志数量
+      alias: 辅助日志数量
+      type: integer
+    MGMT_MQ_NAME:
+      default: MGMT_MQ
+      description: 请输入主消息队列名称
+      alias: 主消息队列名称
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      configure:
+        implementation: ansible.ansible_plugin.operations.configure
+        inputs:
+          playbook:
+            default: scripts/configure.yaml
+            type: string
+            description: null
+      start:
+        implementation: ansible.ansible_plugin.operations.start
+        inputs:
+          playbook:
+            default: scripts/start.yaml
+            type: string
+            description: null
+      stop:
+        implementation: ansible.ansible_plugin.operations.stop
+        inputs:
+          playbook:
+            default: scripts/stop.yaml
+            type: string
+            description: null
+      delete:
+        implementation: ansible.ansible_plugin.operations.delete
+        inputs:
+          playbook:
+            default: scripts/uninstall.yaml
+            type: string
+            description: null
