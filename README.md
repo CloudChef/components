@@ -11,7 +11,7 @@ components可以有以下几种常见分类:
 - components打包后只能用于SmartCMP平台
 
 # 开发说明
-1. 类型定义
+## 1. 类型定义
 ```text
 # 软件基本类型
    resource.software
@@ -21,14 +21,14 @@ components可以有以下几种常见分类:
    resource.software.cache
    resource.software.mq
    resource.software.rds
-# 可以基于以上类型定义基类
+# 可以基于以上类型定义新的子类型
    resource.software.web.apache
    resource.software.web.tomcat
    resource.software.mq.rabbitmq
    resource.software.rds.mysql
 ```
                      
-2. 组件组成部分
+## 2. 组件组成部分
 ```text
 software-components/resource.software.rds.sql_server2012
 ├── main.json                # 组件的元数据定义
@@ -38,7 +38,8 @@ software-components/resource.software.rds.sql_server2012
 └── types                    
     └── main.yaml            # 组件的属性和生命周期定义
 ```   
-3. 脚本编写规范
+## 3. 脚本编写规范
+### Python 脚本示例
 ```python
 # Python 2/3，根据目标执行系统来决定
 import os
@@ -61,7 +62,8 @@ ctx.logger.info("Connection config: {0}".format(connection_config))
 ctx.instance.runtime_properties['var'] = 'value'
 ctx.instance.update()
 
-```   
+```
+### Shell 脚本示例
 ```shell
 # 如果create表单里定义了download_url这个参数
 # 使用如下方式获取参数
@@ -72,7 +74,7 @@ curl -LO $(ctx node properties resource_config.download_url)
 # 或者直接通过环境变量的方式获取
 download_url=$download_url
 ```
-4. 表单编写规范
+## 4. 表单编写规范
 组件的定义，离不开自定义的申请表单，我们可以定义申请表单来控制申请组件服务时的一些变量填写
 
 [表单示例](software-components/Sample-Software/sample_form.json)   
