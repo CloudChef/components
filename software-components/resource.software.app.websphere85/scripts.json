@@ -1,0 +1,14 @@
+[
+  {
+    "name": "was/prepare",
+    "path": "scripts/prepare.sh",
+    "type": "SHELL",
+    "isMainFile": false
+  },
+  {
+    "name": "was/install",
+    "path": "scripts/install.sh",
+    "type": "SHELL",
+    "isMainFile": false
+  }
+]

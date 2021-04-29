@@ -1,0 +1,9 @@
+- name: Check for nginx
+  shell: "systemctl status nginx | cat"
+  register: nginx_status
+
+- name: Copy output.json
+  template: src=output.json.j2 dest=/output.json
+
+- name: Fetch output.json file to local
+  fetch: src=/output.json dest={{blueprint_path}}/{{deployment_id}}-{{node_instance_id}}-output.json backup=yes flat=yes

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+su - mqm -c "/usr/mqm/bin/endmqm  {{ MGMT_MQ_NAME }}"
+su - mqm -c "/usr/mqm/bin/endmqlsr -m {{ MGMT_MQ_NAME}}"

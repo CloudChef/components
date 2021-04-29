@@ -1,0 +1,8 @@
+[
+  {
+    "name": "Install",
+    "path": "scripts/Install.ps1",
+    "type": "POWER_SHELL",
+    "isMainFile": false
+  }
+]

@@ -1,0 +1,10 @@
+- name: Configure DNS
+  lineinfile: dest=/etc/resolv.conf line='nameserver 114.114.114.114'
+
+- name: Open port {{ nginx_port }}
+  shell: firewall-cmd --zone=public --add-port={{ nginx_port }}/tcp --permanent
+  ignore_errors: True
+
+- name: service crond reload
+  shell: firewall-cmd --reload
+  ignore_errors: True

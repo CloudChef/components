@@ -1,0 +1,29 @@
+{
+  "name": "SQLServer 2012",
+  "resourceType": "resource.software.rds.sql_server2012",
+  "parentType": "resource.software.rds",
+  "version": "2012",
+  "cmpVersion": 25,
+  "description": "安装微软SQL Server 2012",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "windows",
+  "category": {
+    "id": "software.rds"
+  },
+  "model": {
+    "typeName": "cloudchef.SQLServer2012",
+    "derivedFrom": "cloudify.nodes.DBMS",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.SQLServer2012.yaml"
+    ],
+    "blueprintFiles": [
+
+    ]
+  },
+  "icon": {
+    "id": "58f60ff7c2dc1d9c3e2eb485"
+  }
+}

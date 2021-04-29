@@ -1,0 +1,10 @@
+---
+- hosts: local
+  gather_facts: False
+
+  tasks:
+  - name: copy stop script to target machine
+    template: src=mq_stop.sh.j2 dest=/tmp/mq_stop.sh
+
+  - name: stop WebSphere MQ
+    command: sh /tmp/mq_stop.sh

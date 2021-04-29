@@ -1,0 +1,36 @@
+{
+  "name": "Flink Deployment",
+  "resourceType": "resource.software.bigdata.flink_deployment",
+  "parentType": "resource.software.bigdata",
+  "version": "1.0",
+  "cmpVersion": 24,
+  "description": "安装Apache Flink群集节点",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.bigdata"
+  },
+  "model": {
+    "typeName": "cloudchef.FlinkDeployment",
+    "derivedFrom": "cloudchef.ansible.nodes.MultiNodesDeploymentComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.FlinkDeployment.yaml"
+    ],
+    "blueprintFiles": [
+      {
+        "name": "playbook",
+        "path": "playbook",
+        "type": "ANSIBLE",
+        "content": "- hosts: flink-HA\n  remote_user: root\n  gather_facts: false\n  roles:\n  - ssh\n  - jdk\n  - zookeeper\n  - hadoop\n  - flink\n- hosts: master\n  remote_user: root\n  gather_facts: false\n  roles:\n  - flink-HA-start",
+        "isMainFile": false
+      }
+    ]
+  },
+  "icon": {
+    "id": "2501c076-17ad-41f8-b111-56c9c37c23de"
+  }
+}

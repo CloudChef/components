@@ -1,0 +1,28 @@
+{
+  "name": "Kubernetes Cluster Node",
+  "resourceType": "resource.software.kubernetes_cluster_node",
+  "parentType": "resource.software",
+  "version": "1.0",
+  "cmpVersion": 23,
+  "description": "安装Kubernetes群集节点",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software"
+  },
+  "model": {
+    "typeName": "cloudchef.KubernetesClusterNode",
+    "derivedFrom": "cloudchef.ansible.nodes.MultiNodesDeploymentComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.KubernetesClusterNode.yaml"
+    ],
+    "blueprintFiles": []
+  },
+  "icon": {
+    "id": "2ffab38c-83dd-4884-94a9-274bf2c4997e"
+  }
+}

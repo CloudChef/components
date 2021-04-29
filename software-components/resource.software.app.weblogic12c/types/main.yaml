@@ -1,0 +1,31 @@
+cloudchef.Weblogic12c:
+  derived_from: cloudify.nodes.WebServer
+  properties:
+    install_path:
+      default: /opt/weblogic/
+      description: 请指定软件安装路径
+      alias: 软件安装路径
+      type: string
+    user:
+      default: weblogic
+      description: 请输入管理员用户名
+      alias: 管理员用户名
+      type: string
+    password:
+      default: weblogic123
+      description: 请输入管理员密码
+      alias: 管理员密码
+      type: password
+    url:
+      default: ''
+      description: 请指定安装包下载路径
+      alias: 安装包下载路径
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      create:
+        implementation: scripts/pre_install.sh
+      configure:
+        implementation: scripts/install_wls.sh
+      start:
+        implementation: scripts/start_wls.sh

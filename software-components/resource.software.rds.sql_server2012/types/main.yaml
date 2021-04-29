@@ -1,0 +1,53 @@
+cloudchef.SQLServer2012:
+  derived_from: cloudify.nodes.DBMS
+  properties:
+    instancename:
+      default: MSSQL
+      description: 请输入需要安装的数据库实例名称
+      alias: 实例名称
+      type: string
+    sapwd:
+      default: P@ssw0rd
+      description: 密码长度必须为8到32个字符，并且必须至少包含以下三种类型：大写字母、小写字母、数字和特殊字符。特殊字符包括# @ ! $ % ^ & * () _ + - =
+      alias: SA密码
+      type: password
+      rexpr_rule: ^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z_!@#$%^&*`()-+=]+$)(?![a-z0-9]+$)(?![a-z_!@#$%^&*`()-+=]+$)(?![0-9_!@#$%^&*`()-+=]+$)[a-zA-Z0-9_!@#$%^&*`()+=-]{8,32}$
+    binarydisk:
+      default: C
+      description: 请指定Binary数据存放路径
+      alias: Binary数据存放路径
+      type: string
+    datadisk:
+      default: C
+      description: 请指定数据存放路径
+      alias: 数据存放路径
+      type: string
+    redolog:
+      default: C
+      description: 请指定Redo日志存放路径
+      alias: Redo日志存放路径
+      type: string
+    archivedisk:
+      default: C
+      description: 请指定Archive数据存放路径
+      alias: Archive数据存放路径
+      type: string
+    sn:
+      default: 748RB-X4T6B-MRM7V-RTVFF-CHC8H
+      description: 请输入软件许可
+      alias: 软件许可
+      type: string
+    isopath:
+      default:
+      description: 请指定ISO安装包路径
+      alias: ISO安装包路径
+      type: string
+    port:
+      default: '1433'
+      description: 数据库端口
+      alias: 数据库端口
+      type: string
+  interfaces:
+    cloudify.interfaces.lifecycle:
+      create:
+        implementation: scripts/Install.ps1

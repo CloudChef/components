@@ -1,0 +1,288 @@
+{
+  "type": "object",
+  "title": "",
+  "description": "",
+  "properties": {
+    "instanceName": {
+      "index": 0, // 生命周期特有，和左侧属性做转换作用
+      "blockTitle": {
+        "zh": "xxxxxxxxx",   // 分割线
+        "en": "xxxxxxxxx"
+      },
+      "id": "instanceName", // 生命周期特有，和左侧属性做转换作用
+      "i18nTitle": {
+        "zh": "xxxxxxxxx",
+        "en": "xxxxxxxxx"
+      },
+      "defaultValue": "oracledb", // 周期特有 和左侧属性做转换作用
+      "default": "xxxxx", // 给表单默认值
+      "pattern": "xxxxxxx", 支持^$，注意需要 \\, 例\d => \\d
+      "maxlength": 10,
+      "minlength": 2,
+      "isRequired": true,
+      "validationMessage": {
+        "pattern": {
+          "zh": "",
+          "en": "",
+        },
+        maxlength: {},
+        minlength: {}
+      },
+      "config": {
+        "visibility": {
+          "allowInApproval": false //只有设置此属性，且为false，则不显示，没配置config或者visibility 默认都是展示的
+        },
+        "modification": {
+          "allowInApproval": false //同理只有设置此属性，且为false，则为不可更改，没配置config或者visibility 默认都是展示的
+        }
+        "value": {
+          //请求的body 询问ApI 设计人员，目前外部参数只支持 businessGroupId,projectId,userid
+          "source": "api",
+          "method": "get || post",
+          "expression": "Url Path /${businessGroupId}/{$.exampleKey1}/",
+          "body": {
+            "businessGroupId": "${businessGroupId}",
+            //外部参数联动
+            "cloudResourceType": "yacmp:cloudentry:type:aws::subnet",
+            "queryProperties": {
+              "resourceBundleId": "{$.xxxxxx}"
+              //内部参数联动 xxxxx为model 上的一个值
+            }
+          }
+          "value": "xx.xxxx.xxxx", 选择框中可以配置对应需要选择的值，没有配置默认传"id"字段
+          "label": "[proprerties,name]", 指定选择框中要选择的字段, 路径写法
+        }
+      }
+    },
+    "type": "string",    //类型必须要有
+    "widget": {
+      "id": "string",  // 选择什么样的组件显示
+      "id": "checkbox",
+      "id": "checkboxes",
+      "id": "number",
+      "id": "password",  // format confirmPassword 确认密码作用
+      "id": "radio",
+      "id": "select",
+      "id": "select-input", //选择和输入可切换
+      "id": "table-head",  // 表单头
+      "id": "table-body", // 表单块
+      "id": "textarea",
+      "id": "array",
+      "id": "object", // 默认对象的形式，例如嵌套结构的时候
+
+    }
+  },
+  "downloadPath": {
+    "index": 1,
+    "placeholder": "下载软件包路径",
+    "id": "downloadPath",
+    "title": "下载路径",
+    "defaultValue": "/user/local/src",
+    "pattern": "",
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "type": "string",
+    "widget": {
+      "id": "string"
+    }
+  },
+  "password": {
+    "index": 2,
+    "placeholder": "oracle数据库密码",
+    "id": "password",
+    "title": "密码",
+    "defaultValue": "Passw0rd",
+    "pattern": null,
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "type": "string",
+    "widget": {
+      "id": "password" //
+    }
+  },
+  "hostName": {
+    "index": 3,
+    "placeholder": "数据库的主机的名字",
+    "id": "hostName",
+    "title": "数据库主机名",
+    "defaultValue": "ooooo",
+    "pattern": "",
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "type": "string",
+    "widget": {
+      "id": "string"
+    }
+  },
+  "userName": {
+    "index": 4,
+    "placeholder": "用户名",
+    "id": "userName",
+    "title": "用户名",
+    "defaultValue": "hsiung",
+    "pattern": "",
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "type": "string",
+    "widget": {
+      "id": "string"
+    }
+  },
+  "userPassword": {
+    "index": 5,
+    "placeholder": "用户名密码",
+    "id": "userPassword",
+    "title": "用户名密码",
+    "defaultValue": "Yacmp123",
+    "pattern": null,
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "type": "string",
+    "widget": {
+      "id": "password"
+    }
+  },
+  "database": {
+    "index": 6,
+    "placeholder": "数据库",
+    "type": "array",
+    "id": "database",
+    "title": "数据库",
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "items": {
+      "type": "object",
+      "title": "database-title",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "databaseName",
+          "hideTitle": true,
+          "widget": {
+            "id": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "title": "description",
+          "hideTitle": true,
+          "widget": {
+            "id": "string"
+          }
+        }
+      },
+      "fieldsets": [
+        {
+          "id": "fieldset-default",
+          "title": "database",
+          "description": "",
+          "name": "",
+          "fields": [
+            "name",
+            "description"
+          ]
+        }
+      ],
+      "widget": {
+        "id": "table-body"
+      }
+    },
+    "widget": {
+      "id": "table-head"
+    }
+  },
+  "databaseUser": {
+    "index": 7,
+    "type": "array",
+    "placeholder": "数据库访问用户",
+    "id": "databaseUser",
+    "title": "数据库访问用户",
+    "config": {
+      "visibility": {
+        "allowInRequest": true,
+        "allowInApproval": true
+      }
+    },
+    "items": {
+      "type": "object",
+      "title": "databaseUser-title",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "databaseUserName",
+          "hideTitle": true,
+          "defautlt": "1",
+          "widget": {
+            "id": "string"
+          }
+        },
+        "elseProp": {
+          "type": "string",
+          "title": "databaseUserElse",
+          "hideTitle": true,
+          "widget": {
+            "id": "string"
+          }
+        },
+        "description": {
+          "type": "string",
+          "title": "description",
+          "config": {
+            "value": {
+              "sourceOneOf": "database", // 特殊定制，表示这个值的选择值来源支持database的值，data是个多元素数组
+              "label": "description",
+              "value": "name"
+            }
+          },
+          "hideTitle": true,
+          "widget": {
+            "id": "select"
+          }
+        }
+      },
+      "fieldsets": [
+        {
+          "id": "fieldset-default1",
+          "title": "databaseUser",
+          "description": "",
+          "name": "",
+          "fields": [
+            "name",
+            "elseProp",
+            "description"
+          ]
+        }],
+      "widget": {
+        "id": "table-body"
+      }
+    },
+    "widget": {
+      "id": "table-head"
+    }
+  }
+}
+}

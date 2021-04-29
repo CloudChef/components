@@ -1,0 +1,75 @@
+{
+  "model": {
+    "package_url": "https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.18.0-1.el7.ngx.x86_64.rpm",
+    "port": 80,
+    "schemaFormValid": true
+  },
+  "schema": {
+    "type": "object",
+    "title": "",
+    "description": "",
+    "properties": {
+      "package_url": {
+        "id": "package_url",
+        "index": 0,
+        "i18nPlaceholder": {
+          "en": "Please specify the nginx installation package path",
+          "zh": "请指定Nginx安装包下载路径"
+        },
+        "i18nTitle": {
+          "zh": "安装包下载路径",
+          "en": "Download package path"
+        },
+        "i18nDescription": {
+          "zh": "请输入RPM包的URL，例如:https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.18.0-1.el7.ngx.x86_64.rpm的路径",
+          "en": "Please enter the URL of the RPM package, example:https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.18.0-1.el7.ngx.x86_64.rpm"
+        },
+        "config": {
+          "visibility": {
+            "allowInRequest": true
+          },
+          "modification": {
+            "allowInRequest": true
+          }
+        },
+        "required": true,
+        "type": "string",
+        "widget": {
+          "id": "string"
+        },
+        "defaultValue": "https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.18.0-1.el7.ngx.x86_64.rpm",
+        "default": "https://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.18.0-1.el7.ngx.x86_64.rpm"
+      },
+      "port": {
+        "id": "port",
+        "index": 1,
+        "i18nPlaceholder": {
+          "en": "Please enter the application port",
+          "zh": "请输入服务端口"
+        },
+        "i18nTitle": {
+          "zh": "服务端口",
+          "en": "Application port"
+        },
+        "config": {
+          "visibility": {
+            "allowInRequest": true
+          },
+          "modification": {
+            "allowInRequest": true
+          }
+        },
+        "numberType": "integer",
+        "type": "number",
+        "widget": {
+          "id": "number"
+        },
+        "defaultValue": 80,
+        "default": 80
+      }
+    },
+    "widget": {
+      "id": "object"
+    }
+  }
+}

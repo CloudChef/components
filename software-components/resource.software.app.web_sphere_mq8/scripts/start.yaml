@@ -1,0 +1,10 @@
+---
+- hosts: local
+  gather_facts: False
+
+  tasks:
+  - name: copy start script to target machine
+    template: src=mq_start.sh.j2 dest=/tmp/mq_start.sh
+
+  - name: start WebSphere MQ
+    command: sh /tmp/mq_start.sh

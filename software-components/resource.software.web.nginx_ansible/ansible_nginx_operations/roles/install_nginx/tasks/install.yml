@@ -1,0 +1,2 @@
+- name: install nginx package
+  shell: yum -y install {{ package_url }}

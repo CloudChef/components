@@ -1,0 +1,12 @@
+cloudchef.KubernetesClusterNode:
+  derived_from: cloudchef.ansible.nodes.MultiNodesDeploymentComponent
+  properties:
+    roles:
+      default: 'etcd,kube-node'
+      description: 请选择Kubernetes群集节点的角色
+      alias: 角色
+      required: false
+      options:
+        - 'deploy,etcd,kube-master,kube-node'
+        - 'etcd,kube-node'
+      type: string

@@ -1,0 +1,121 @@
+[ {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/group.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/add_dns.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/template.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/start.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/install.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/start.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/templates/nginx.conf.j2",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/create.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/refresh.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/handlers/main.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/main.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/install_nginx/tasks/user.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/refresh_nginx/tasks/main.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/roles/refresh_nginx/templates/output.json.j2",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+}, {
+  "name" : "Ansible",
+  "type" : "ANSIBLE",
+  "description" : null,
+  "path" : "ansible_nginx_operations/stop.yml",
+  "content" : "",
+  "isMainFile" : false,
+  "mainFile" : false
+} ]

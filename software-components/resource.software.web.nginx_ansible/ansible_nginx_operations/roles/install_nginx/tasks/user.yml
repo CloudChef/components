@@ -1,0 +1,2 @@
+- name: create user
+  user: name=nginx uid=8088 group=nginx system=yes shell=/sbin/nologin

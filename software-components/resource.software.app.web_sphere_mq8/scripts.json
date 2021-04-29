@@ -1,0 +1,56 @@
+[
+  {
+    "name": "scripts/configure.yaml",
+    "path": "scripts/configure.yaml",
+    "type": "ANSIBLE",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/start.yaml",
+    "path": "scripts/start.yaml",
+    "type": "ANSIBLE",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/stop.yaml",
+    "path": "scripts/stop.yaml",
+    "type": "ANSIBLE",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/uninstall.yaml",
+    "path": "scripts/uninstall.yaml",
+    "type": "ANSIBLE",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/templates/mq_install.sh.j2",
+    "path": "scripts/templates/mq_install.sh.j2",
+    "type": "TEXT",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/templates/mq_configure.sh.j2",
+    "path": "scripts/templates/mq_configure.sh.j2",
+    "type": "TEXT",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/templates/mq_start.sh.j2",
+    "path": "scripts/templates/mq_start.sh.j2",
+    "type": "TEXT",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/templates/mq_stop.sh.j2",
+    "path": "scripts/templates/mq_stop.sh.j2",
+    "type": "TEXT",
+    "isMainFile": false
+  },
+  {
+    "name": "scripts/templates/mq_uninstall.sh.j2",
+    "path": "scripts/templates/mq_uninstall.sh.j2",
+    "type": "TEXT",
+    "isMainFile": false
+  }
+]

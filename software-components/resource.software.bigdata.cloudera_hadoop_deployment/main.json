@@ -1,0 +1,36 @@
+{
+  "name": "Cloudera Hadoop Deployment",
+  "resourceType": "resource.software.bigdata.cloudera_hadoop_deployment",
+  "parentType": "resource.software.bigdata",
+  "version": "5.9",
+  "cmpVersion": 24,
+  "description": "安装Cloudera Hadoop群集",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.bigdata"
+  },
+  "model": {
+    "typeName": "cloudchef.ClouderaHadoopDeployment",
+    "derivedFrom": "cloudchef.ansible.nodes.MultiNodesDeploymentComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.ClouderaHadoopDeployment.yaml"
+    ],
+    "blueprintFiles": [
+      {
+        "name": "playbook",
+        "path": "playbook",
+        "type": "ANSIBLE",
+        "content": "---\n- name: Check hosts file\n  tags: check\n  hosts: all\n  roles:\n    - check_config\n\n- name: Setup local environment\n  tags:\n    - common\n    - clinit\n    - interfaces\n    - config\n  hosts: all\n  tasks:\n    - name: create working directory\n      local_action: file dest=\"{{ inventory_dir }}/workdir\" state=directory\n      run_once: true\n\n- name: Prepare hosts for cloudera hadoop cluster\n  tags: common\n  hosts: java\n  roles:\n    - common\n\n- name: Deploy zookeeper\n  hosts: zookeepernodes\n  tags: zookeepernodes\n  roles:\n    - zookeeper\n\n- name: Deploy hadoop configuration\n  tags:\n    - config\n    - hadoop\n  hosts: hadoop\n  roles:\n    - { role: hadoop, deploy: 'base' }\n\n- name: Deploy journal nodes\n  tags: journalnodes\n  hosts: journalnodes\n  roles:\n    - { role: hadoop, deploy: 'journalnodes' }\n\n- name: Deploy namenodes\n  tags: namenodes\n  hosts: namenodes\n  roles:\n    - { role: hadoop, deploy: 'namenodes' }\n    - { role: hadoop, deploy: 'namenodes-fence' }\n\n- name: Deploy datanodes\n  tags: datanodes\n  hosts: datanodes\n  roles:\n    - { role: hadoop, deploy: 'datanodes' }\n\n- name: Test hdfs\n  tags: test\n  hosts: namenodes\n  roles:\n    - { role: hadoop, deploy: 'test-hdfs' }\n\n- name: Deploy yarn resource manager and job history server\n  tags: yarnresourcemanager\n  hosts: yarnresourcemanager\n  roles:\n    - { role: hadoop, deploy: 'resourcemanager' }\n\n- name: Test mapreduce\n  tags: test\n  hosts: yarnresourcemanager\n  roles:\n    - { role: hadoop, deploy: 'test-mapreduce' }\n\n- name: Deploy postgresql\n  tags: postgresql\n  hosts: postgresql\n  roles:\n    - postgresql\n\n- name: Deploy hive metastore\n  tags: hivemetastore\n  hosts: hivemetastore\n  roles:\n    - { role: hivemetastore, deploy: 'hive-server' }\n\n- name: Deploy hive client on datanodes\n  tags: hive\n  hosts: datanodes\n  roles:\n    - { role: hivemetastore, deploy: 'hive-client' }\n\n- name: Deploy impala state-store and catalog\n  tags: impala\n  hosts: impala-store-catalog\n  roles:\n    - { role: impala, deploy: 'impala' }\n\n- name: Deploy impala daemon on datanodes\n  tags: impala\n  hosts: datanodes\n  roles:\n    - { role: impala, deploy: 'impala-server' }\n\n- name: Deploy HBase\n  tags: hbase\n  hosts: hbasemaster\n  roles:\n    - { role: hbase, deploy: 'hbase-master' }\n\n- name: Deploy HBase regionservers on datanodes\n  tags: hbase\n  hosts: datanodes\n  roles:\n    - { role: hbase, deploy: 'regionserver' }\n\n- name: Deploy spark\n  tags: spark\n  hosts: spark\n  roles:\n    - spark\n\n- name: Deploy solr search\n  tags: solr\n  hosts: solr\n  roles:\n    - solr\n\n- name: Deploy oozie\n  tags: oozie\n  hosts: oozie\n  roles:\n    - oozie\n\n- name: Deploy kafka\n  tags: kafka\n  hosts: kafka\n  roles:\n    - kafka\n\n- name: Deploy Hue\n  tags: hue\n  hosts: hue\n  roles:\n    - hue\n\n- name: Deploy snmp monitoring\n  tags: snmp\n  hosts: java\n  roles:\n    - { role: snmp, when: enable_snmp }\n\n- name: Deploy syslog-ng monitoring\n  tags: syslog\n  hosts: java\n  roles:\n    - { role: syslog-ng, when: enable_syslog }\n\n- name: cluster\n  tags: cluster\n  hosts: yarnresourcemanager\n  tasks:\n    - debug: msg=\"{{ lookup('pipe', 'echo; clinit -S workdir/services.xml --nocolors tree;echo =')}}\"\n      run_once: true\n\n- name: dashboard\n  tags: dashboard\n  hosts: dashboard\n  roles:\n    - dashboard",
+        "isMainFile": false
+      }
+    ]
+  },
+  "icon": {
+    "id": "676c6c2d-8a71-46f5-a817-5a26af694905"
+  }
+}

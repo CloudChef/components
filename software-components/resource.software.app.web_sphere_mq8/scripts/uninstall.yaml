@@ -1,0 +1,8 @@
+- hosts: local
+  gather_facts: False
+  tasks:
+  - name: copy uninstall script to target machine
+    template: src=mq_uninstall.sh.j2 dest=/tmp/mq_uninstall.sh
+
+  - name: uninstall WebSphere MQ
+    command: sh /tmp/mq_uninstall.sh

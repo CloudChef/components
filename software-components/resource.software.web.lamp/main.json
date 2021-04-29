@@ -1,0 +1,133 @@
+{
+  "name": "LAMP",
+  "resourceType": "resource.software.web.lamp",
+  "parentType": "resource.software.web",
+  "version": "1.0",
+  "cmpVersion": 24,
+  "description": "安装Linux, Apache, MySQL以及PHP",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software.web"
+  },
+  "model": {
+    "typeName": "cloudchef.LAMP",
+    "derivedFrom": "cloudchef.ansible.nodes.WebServer",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.LAMP.yaml"
+    ],
+    "blueprintFiles": [
+      {
+        "name": "site",
+        "path": "site.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# This playbook deploys the whole application stack in this site.\n\n- name: apply common configuration to all nodes\n  hosts: local\n\n  roles:\n    - common\n\n- name: configure and deploy the webservers and application code\n  hosts: local\n\n  roles:\n    - web\n\n- name: deploy MySQL and configure the databases\n  hosts: local\n\n  roles:\n    - db\n\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/common/handlers/main",
+        "path": "roles/common/handlers/main.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# Handler to handle common notifications. Handlers are called by other plays.\n# See http://docs.ansible.com/playbooks_intro.html for more information about handlers.\n\n- name: restart ntp\n  service: name=ntpd state=restarted\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/common/tasks/main",
+        "path": "roles/common/tasks/main.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# This playbook contains common plays that will be run on all nodes.\n\n- name: Install ntp\n  yum: name=ntp state=present\n  tags: ntp\n\n- name: Install common dependencies\n  yum: name={{ item }} state=installed\n  with_items:\n   - libselinux-python\n   - libsemanage-python\n   - firewalld\n\n- name: Configure ntp file\n  template: src=ntp.conf.j2 dest=/etc/ntp.conf\n  tags: ntp\n  notify: restart ntp\n\n- name: Start the ntp service\n  service: name=ntpd state=started enabled=yes\n  tags: ntp",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/common/templates/ntp.conf.j2",
+        "path": "roles/common/templates/ntp.conf.j2",
+        "type": "ANSIBLE",
+        "content": "\ndriftfile /var/lib/ntp/drift\n\nrestrict 127.0.0.1 \nrestrict -6 ::1\n\nserver {{ ntpserver }}\n\nincludefile /etc/ntp/crypto/pw\n\nkeys /etc/ntp/keys\n\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/db/handlers/main",
+        "path": "roles/db/handlers/main.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# Handler to handle DB tier notifications\n\n- name: restart mariadb\n  service: name=mariadb state=restarted\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/db/tasks/main",
+        "path": "roles/db/tasks/main.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# This playbook will install MariaDB and create db user and give permissions.\n\n- name: Install MariaDB package\n  yum: name={{ item }} state=installed\n  with_items:\n   - mariadb-server\n   - MySQL-python\n\n- name: Configure SELinux to start mysql on any port\n  selinux: state=disabled\n\n- name: Create Mysql configuration file\n  template: src=my.cnf.j2 dest=/etc/my.cnf\n  notify:\n  - restart mariadb\n\n- name: Create MariaDB log file\n  file: path=/var/log/mysqld.log state=touch owner=mysql group=mysql mode=0775\n\n- name: Create MariaDB PID directory\n  file: path=/var/run/mysqld state=directory owner=mysql group=mysql mode=0775\n\n- name: Start MariaDB Service\n  service: name=mariadb state=started enabled=yes\n\n- name: Start firewalld\n  service: name=firewalld state=started enabled=yes\n\n- name: insert firewalld rule\n  firewalld: port={{ mysql_port }}/tcp permanent=true state=enabled immediate=yes\n\n- name: Create Application Database\n  mysql_db: name={{ dbname }} state=present\n\n- name: Create Application DB User\n  mysql_user: name={{ dbuser }} password={{ upassword }} priv=*.*:ALL host='%' state=present\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/db/templates/my.cnf.j2",
+        "path": "roles/db/templates/my.cnf.j2",
+        "type": "TEXT",
+        "content": "[mysqld]\ndatadir=/var/lib/mysql\nsocket=/var/lib/mysql/mysql.sock\nuser=mysql\n# Disabling symbolic-links is recommended to prevent assorted security risks\nsymbolic-links=0\nport={{ mysql_port }}\n\n[mysqld_safe]\nlog-error=/var/log/mysqld.log\npid-file=/var/run/mysqld/mysqld.pid\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/web/files/index.html",
+        "path": "roles/web/files/index.html",
+        "type": "TEXT",
+        "content" : "<html>\n<body>\n<div id=\"about-container\" class=\"container\">\n    <div class=\"row\">\n            <h2 class=\"text-center\">关于我们</h2>\n            <hr style=\"border-color:#f0f0ff\">\n            <br>\n            <p> 混合云应用管理平台致力于解决企业混合云应用管理问题。为应用提供可视化建模，实现一次建模，一键多平台自动部署和应用的全生命周期管理。让企业能够轻松部署和管理跨公有云、私有云的重要商业应用，帮助企业更好地使用云来加速业务创新。</p>\n </div>\n</div>\n</body>\n</html>\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/web/tasks/copy_code",
+        "path": "roles/web/tasks/copy_code.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# These tasks are responsible for copying the latest dev/production code from\n# the version control system.\n\n- name: Copy the code from repository\n  copy: src=index.html dest=/var/www/html/\n\n- name: Creates the index.php file\n  template: src=index.php.j2 dest=/var/www/html/index.php\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/web/tasks/install_httpd",
+        "path": "roles/web/tasks/install_httpd.yml",
+        "type": "ANSIBLE",
+        "content": "---\n# These tasks install http and the php modules.\n\n- name: Install httpd and php\n  yum: name={{ item }} state=present\n  with_items:\n   - httpd\n   - php\n   - php-mysql\n\n- name: Start firewalld\n  service: name=firewalld state=started enabled=yes\n\n- name: insert firewalld rule for httpd\n  firewalld: port={{ httpd_port }}/tcp permanent=true state=enabled immediate=yes\n\n- name: http service state\n  service: name=httpd state=started enabled=yes\n\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/web/tasks/main",
+        "path": "roles/web/tasks/main.yml",
+        "type": "ANSIBLE",
+        "content": "---\n- include: install_httpd.yml\n- include: copy_code.yml\n",
+        "isMainFile": false
+      },
+      {
+        "name": "roles/web/templates/index.php.j2",
+        "path": "roles/web/templates/index.php.j2",
+        "type": "TXET",
+        "content": "<html>\n <head>\n  <title>Ansible Application</title>\n </head>\n <body>\n </br>\n  <a href=http://{{ ansible_default_ipv4.address }}/index.html>Homepage</a>\n </br>\n<?php \n Print \"Hello, World! I am a web server configured using Ansible and I am : \";\n echo exec('hostname');\n Print  \"</BR>\";\necho  \"List of Databases: </BR>\";\n        $link = mysqli_connect('{{ ansible_default_ipv4.address }}', '{{ dbuser }}', '{{ upassword }}') or die(mysqli_connect_error($link));\n        $res = mysqli_query($link, \"SHOW DATABASES;\");\n        while ($row = mysqli_fetch_assoc($res)) {\n                echo $row['Database'] . \"\\n\";\n        }\n?>\n</body>\n</html>\n\n",
+        "isMainFile": false
+      },
+      {
+        "name": "stop",
+        "path": "stop.yml",
+        "type": "ANSIBLE",
+        "content": "---\n- name: stop http and mysql service\n  hosts: local\n\n  tasks:\n    - name: Stop http service\n      service: name=httpd state=stopped\n      ignore_errors: True\n\n    - name: Stop MariaDB Service\n      service: name=mariadb state=stopped\n      ignore_errors: True\n      \n      ",
+        "isMainFile": false
+      },
+      {
+        "name": "delete",
+        "path": "delete.yml",
+        "content": "---\n- include: stop.yml\n- name: delete http and mysql\n  hosts: local\n\n\n  tasks:\n    - name: remove httpd and php and mysql\n      yum: name={{ item }} state=removed\n      with_items:\n       - httpd\n       - php\n       - php-mysql\n       - mariadb\n       - mariadb-server\n       - MySQL-python\n      ignore_errors: True",
+        "isMainFile": false
+      },
+      {
+        "name": "start",
+        "path": "start.yml",
+        "type": "ANSIBLE",
+        "content": "---\n- name: start http and mysql service\n  hosts: local\n\n  tasks:\n    - name: Start http service\n      service: name=httpd state=restarted\n\n    - name: Start MariaDB Service\n      service: name=mariadb state=restarted",
+        "isMainFile": false
+      }
+    ]
+  },
+  "icon": {
+    "id": "58996a08c2dc2edd1f93c2d0"
+  }
+}

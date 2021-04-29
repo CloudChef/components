@@ -1,0 +1,3 @@
+#!/bin/bash
+
+su - mqm -c "/usr/mqm/bin/crtmqm -lp {{ primary_log_num }} -ls {{ standby_log_num }}  {{ MGMT_MQ_NAME }}"

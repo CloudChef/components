@@ -1,0 +1,37 @@
+{
+  "name": "Kubernetes Deployment",
+  "resourceType": "resource.software.kubernetes_deployment",
+  "parentType": "resource.software",
+  "version": "1.0",
+  "cmpVersion": 24,
+  "description": "安装Kubernetes群集",
+  "cloudEntryTypeIds": "",
+  "runtime": "instance",
+  "osType": "linux",
+  "category": {
+    "id": "software"
+  },
+  "model": {
+    "typeName": "cloudchef.KubernetesDeployment",
+    "derivedFrom": "cloudchef.ansible.nodes.MultiNodesDeploymentComponent",
+    "yamlContent": "",
+    "imports": [
+      "file:///opt/manager/resources/spec/ansible-plugin/plugin.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "file:///opt/manager/resources/spec/base/types.yaml",
+      "types/cloudchef.KubernetesDeployment.yaml"
+    ],
+    "blueprintFiles": [
+      {
+        "name": "playbook",
+        "path": "playbook",
+        "type": "ANSIBLE",
+        "content": "# [可选]操作系统安全加固\n- hosts: all\n  roles:\n  - { role: os-harden, when: \"OS_HARDEN is defined and OS_HARDEN == 'yes'\" }\n# 在deploy节点生成CA相关证书，以供整个集群使用\n# 以及初始化kubedns.yaml配置文件\n- hosts: deploy\n  roles:\n  - deploy\n# 集群节点的公共配置任务\n- hosts:\n  - kube-master\n  - kube-node\n  - deploy\n  - etcd\n  - lb\n  roles:\n  - prepare\n# [可选]多master部署时的负载均衡配置\n- hosts: lb\n  roles:\n  - lb\n# 创建etcd集群\n- hosts: etcd\n  roles:\n  - etcd\n# docker服务安装\n- hosts:\n  - kube-master\n  - kube-node\n  roles:\n  - docker\n- hosts: kube-master\n  roles:\n  - kube-master\n  - kube-node\n  # 禁止业务 pod调度到 master节点\n  tasks:\n  - name: 禁止业务 pod调度到 master节点\n    shell: \"{{ bin_dir }}/kubectl cordon {{ inventory_hostname }} \"\n    when: DEPLOY_MODE != \"allinone\"\n    ignore_errors: true\n# node 节点部署\n- hosts: kube-node\n  roles:\n  - { role: kube-node, when: \"DEPLOY_MODE != 'allinone'\" }\n# 集群网络插件部署，只能选择一种安装\n- hosts:\n  - kube-master\n  - kube-node\n  roles:\n  - { role: calico, when: \"CLUSTER_NETWORK == 'calico'\" }\n  - { role: flannel, when: \"CLUSTER_NETWORK == 'flannel'\" }\n# 部署dashdoard,支持用户名密码的方式登陆\n- hosts:\n  - kube-master\n  roles:\n  - dashboard",
+        "isMainFile": false
+      }
+    ]
+  },
+  "icon": {
+    "id": "b47f0efb-41d9-4e12-9771-9cdd3367e2fe"
+  }
+}

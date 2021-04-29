@@ -1,0 +1,13 @@
+{% if 'Active: active (running)' in nginx_status.stdout %}
+{"status": "started"}
+{% elif 'Active: active (exited)' in nginx_status.stdout %}
+{"status": "stopping"}
+{% elif 'Active: deactivating (stop)' in nginx_status.stdout %}
+{"status": "stopping"}
+{% elif 'Active: inactive (dead)' in nginx_status.stdout %}
+{"status": "stopped"}
+{% elif 'Active: failed (Result: exit-code)' in nginx_status.stdout %}
+{"status": "stopped"}
+{% else %}
+{"status": "lost"}
+{% endif %}

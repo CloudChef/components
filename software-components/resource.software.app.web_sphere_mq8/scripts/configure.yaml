@@ -1,0 +1,18 @@
+---
+- hosts: local
+  gather_facts: False
+
+  tasks:
+  - name: copy installation package
+    copy: src=/opt/manager/resources/softwares/WS_MQ_8.0.0.4_TRIAL_FOR_AIX_ML.tar.gz dest=/
+
+  - name: copy installation script to target machine
+    template: src=mq_install.sh.j2 dest=/tmp/mq_install.sh
+
+  - name: install WebSphere MQ 8.0
+    command: sh /tmp/mq_install.sh
+  - name: copy configure script to target machine
+    template: src=mq_configure.sh.j2 dest=/tmp/mq_configure.sh
+
+  - name: configure WebSphere MQ
+    command: sh /tmp/mq_configure.sh
