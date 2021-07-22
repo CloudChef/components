@@ -1,0 +1,1 @@
+Component can be used to integrate with external systems.
